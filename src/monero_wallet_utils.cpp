@@ -160,7 +160,7 @@ bool monero_wallet_utils::are_equal_mnemonics(const string &words_a, const strin
 	return *(retVals__a.optl__sec_seed) == *(retVals__b.optl__sec_seed);
 }
 //
-const uint32_t stable_32B_seed_mnemonic_word_count = 25;
+const uint32_t stable_32B_seed_mnemonic_word_count = 26;
 const uint32_t legacy_16B_seed_mnemonic_word_count = 13;
 
 bool _areBothSpaceChars(char lhs, char rhs) {
@@ -206,7 +206,7 @@ bool monero_wallet_utils::decoded_seed(
 		bool r = crypto::ElectrumWords::words_to_bytes(mnemonic_string__ref, sec_seed, mnemonic_language);
 		if (!r) {
 			retVals.did_error = true;
-			retVals.err_string = "Invalid 25-word mnemonic";
+			retVals.err_string = "Invalid 26-word mnemonic";
 			//
 			return false;
 		}
@@ -225,7 +225,7 @@ bool monero_wallet_utils::decoded_seed(
 		sec_seed_string = string_tools::pod_to_hex(legacy16B_sec_seed); // <- NOTE: we are returning the _LEGACY_ seed as the string… this is important so we don't lose the fact it was 16B/13-word originally!
 	} else {
 		retVals.did_error = true;
-		retVals.err_string = "Please enter a 25- or 13-word secret mnemonic.";
+		retVals.err_string = "Please enter a 26- or 13-word secret mnemonic.";
 		//
 		return false;
 	}
