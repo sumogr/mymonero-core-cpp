@@ -83,8 +83,8 @@ bool monero_transfer_utils::is_tx_spendtime_unlocked(
 		uint64_t current_time = static_cast<uint64_t>(time(NULL));
 		// XXX: this needs to be fast, so we'd need to get the starting heights
 		// from the daemon to be correct once voting kicks in
-		uint64_t v2height = nettype == TESTNET ? 624634 : nettype == STAGENET ? (uint64_t)-1/*TODO*/ : 1009827;
-		uint64_t leeway = block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2;
+		uint64_t v2height = nettype == TESTNET ? 624634 : nettype == STAGENET ? (uint64_t)-1/*TODO*/ : 1;
+		uint64_t leeway = block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS;
 		if(current_time + leeway >= unlock_time)
 			return true;
 		else
@@ -478,7 +478,7 @@ void monero_transfer_utils::create_transaction(
 	uint32_t fake_outputs_count = fixed_mixinsize();
 	bool bulletproof = true;
 	rct::RangeProofType range_proof_type = bulletproof ? rct::RangeProofPaddedBulletproof : rct::RangeProofBorromean;
-	int bp_version = bulletproof ? (use_fork_rules_fn(HF_VERSION_SMALLER_BP, -10) ? 2 : 1) : 0;
+	int bp_version = bulletproof ? (use_fork_rules_fn(HF_VERSION_SMALLER_BP, -7) ? 2 : 1) : 0;
 	const rct::RCTConfig rct_config {
 		range_proof_type,
 		bp_version,
